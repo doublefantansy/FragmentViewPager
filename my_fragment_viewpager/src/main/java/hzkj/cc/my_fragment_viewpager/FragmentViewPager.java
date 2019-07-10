@@ -26,6 +26,11 @@ public class FragmentViewPager extends LinearLayout {
     ViewPager viewPager;
     private float lastValue = -1;
     private boolean isLeft;
+    OnMovePageListenner listenner;
+
+    public void setListenner(OnMovePageListenner listenner) {
+        this.listenner = listenner;
+    }
 
     public FragmentViewPager(Context context) {
         super(context);
@@ -59,8 +64,10 @@ public class FragmentViewPager extends LinearLayout {
             @Override
             public void click(int i) {
                 viewPager.setCurrentItem(i);
+//                listenner.click(i);
             }
         });
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -78,6 +85,7 @@ public class FragmentViewPager extends LinearLayout {
             @Override
             public void onPageSelected(int i) {
                 indicatorBar.changeTextColor(i);
+                listenner.click(i);
             }
 
             @Override
